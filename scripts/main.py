@@ -16,12 +16,11 @@ df.fillna('', inplace=True)
 df = df[df.categories.str.contains('^Hotels$',case=True, regex=True)]#.dropna(subset=['reviews.text']
 reviews = list(df['reviews.text'])
 text = '\n'.join(reviews)
-text_chunk = '\n'.join(reviews[:50])
 
 #%%
 @app.route('/tones')
 def get_tones():
-    agg_avg = tone_analysis(text_chunk)
+    agg_avg = tone_analysis(text)
     return jsonify(agg_avg)
 
 @app.route('/indexing')
@@ -35,7 +34,7 @@ def data_index():
 
 #%%
 def tone_analysis(text):
-    API_KEY = '7BTdw4reo_vhYWrY7w2z_CfWQ-Ikw8-dSKZzK6qbj8zg'
+    API_KEY = '' # Put your api here
     authenticator = IAMAuthenticator(API_KEY)
     tone_analyzer = ToneAnalyzerV3(
         version='2017-09-21',
